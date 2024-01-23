@@ -48,11 +48,25 @@ var timeSchedule = [
 // Creating and Defining Rows 
 timeSchedule.forEach(function (timeBlock, index) {
     var timeStamp = timeBlock.time;
-    var blockColor = colorRow(timeStamp);
+    var blockColor = rowColors(timeStamp);
     var rows =
         '<div class="time-block" id="' + index + '"><div class="row no-gutters input-group"><div class="col-sm col-lg-1 input-group-prepend hour justify-content-sm-end pr-3 pt-3">' + timeStamp +
         '</div><textarea id="hours' + index + '" placeholder="Add events here" class="form-control ' + blockColor + '">' + timeBlock.event + '</textarea><div class="col-sm col-lg-1 input-group-append"><button class="saveBtn btn-block" type="submit"><i class="fas fa-save"></i></button></div></div></div>'
 
-// To attach rows to container div
+    // To attach rows to container div
     $(".container").append(rows);
 });
+
+// For row coloring
+function rowColors(time) {
+    var scheduleStat = moment(now, "H A");
+    var scheduleTime = moment(time, "H A");
+    if (scheduleStat.isBefore(scheduleTime) === true) {
+        return "future";
+    } else if (scheduleStat.isAfter(scheduleTime) === true) {
+        return "past";
+    } else {
+        return "present";
+    }
+}
+
