@@ -1,6 +1,8 @@
-// To display current date in header
-$(function () {
-    var currentDay = $("#currentDay");
-    var now = dayjs().format("dddd, MMMM D YYYY");
-    currentDay.text(now);
-});
+// Defining variables
+var present = moment().format("dddd, MMMM Do YYYY ");
+var now = moment().format("H A");
+
+// Displays current date in header
+$("#currentDay").text(present);
+
+
