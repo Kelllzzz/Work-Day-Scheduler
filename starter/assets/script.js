@@ -43,11 +43,13 @@ var timeSchedule = [
         time: "5 PM",
         event: ""
     },
-    {
-        time: "6 PM",
-        event: ""
-    },
 ];
+
+// Retrieve schedule from local storage
+var activities = JSON.parse(localStorage.getItem('daySchedule'));
+if (activities) {
+    timeSchedule = activities
+}
 
 // Creating and Defining Rows 
 timeSchedule.forEach((timeBlock, index) => {
