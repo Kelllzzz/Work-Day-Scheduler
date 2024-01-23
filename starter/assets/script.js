@@ -43,15 +43,18 @@ var timeSchedule = [
         time: "5 PM",
         event: ""
     },
+    {
+        time: "6 PM",
+        event: ""
+    },
 ];
 
 // Creating and Defining Rows 
-timeSchedule.forEach(function (timeBlock, index) {
+timeSchedule.forEach((timeBlock, index) => {
     var timeStamp = timeBlock.time;
     var blockColor = rowColors(timeStamp);
-    var rows =
-        '<div class="time-block" id="' + index + '"><div class="row no-gutters input-group"><div class="col-sm col-lg-1 input-group-prepend hour justify-content-sm-end pr-3 pt-3">' + timeStamp +
-        '</div><textarea id="hours' + index + '" placeholder="Add events here" class="form-control ' + blockColor + '">' + timeBlock.event + '</textarea><div class="col-sm col-lg-1 input-group-append"><button class="saveBtn btn-block" type="submit"><i class="fas fa-save"></i></button></div></div></div>'
+    var rows = '<div class="time-block" id="' + index + '"><div class="row no-gutters input-group"><div class="col-sm col-lg-1 input-group-prepend hour justify-content-sm-end pr-3 pt-3">' + timeStamp +
+        '</div><textarea id="hours' + index + '" placeholder="Add events here" class="form-control ' + blockColor + '">' + timeBlock.event + '</textarea><div class="col-sm col-lg-1 input-group-append"><button class="saveBtn btn-block" type="submit"><i class="fas fa-save"></i></button></div></div></div>';
 
     // To attach rows to container div
     $(".container").append(rows);
@@ -69,4 +72,23 @@ function rowColors(time) {
         return "present";
     }
 }
+
+// saves user input to local storage
+$(".saveBtn").on("click", function () {
+    var blockID = parseInt(
+        $(this)
+            .closest(".time-block")
+            .attr("id")
+    );
+    var userInput = $.trim(
+        $(this)
+            .parent()
+            .siblings("textarea")
+            .val()
+    );
+    timeSchedule[blockID].event = userInput;
+
+    /* Saves to local storage */
+    localStorage.setItem("daySchedule", JSON.stringify(timeSchedule));
+});
 
